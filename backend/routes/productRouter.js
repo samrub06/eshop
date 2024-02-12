@@ -1,7 +1,30 @@
-import { express } from "express";
+import express from "express";
+import asyncHandler from "../middleware/asyncHandler.js";
+import Product from "../models/productModel.js";
+// asyncHandler is used because we do many operation with Mongoose that do async operation
 
-const router= express.Router()
+const router = express.Router();
 
-router.get("/", (req,res)=>{
-    res.json
-})
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const products = await Product.find({});
+    res.json(products);
+  })
+);
+
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+     return res.json(product);
+    }else {
+    res.status(404)
+    throw new Error('Resource not Found')
+
+    }
+  })
+);
+
+export default router;
