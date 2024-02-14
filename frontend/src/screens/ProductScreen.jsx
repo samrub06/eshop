@@ -9,8 +9,7 @@ import {
   Row,
 } from "react-bootstrap";
 import Rating from "../components/Rating";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import {  useState } from "react";
 import { useGetProductByIdQuery } from "../slices/productSlice";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
@@ -33,10 +32,10 @@ const ProductScreen = () => {
   useEffect(() => {
     fetchProduct();
   }, [productId]); */
-console.log("product", product, qty);
+
   const addToCartHandler = () => {
-    dispatch(addToCart({...product, qty }));
-    navigate("/cart");
+  dispatch(addToCart({...product, qty }));
+  navigate("/cart");
   };
 
   return (

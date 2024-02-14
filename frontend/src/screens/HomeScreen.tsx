@@ -11,7 +11,6 @@ const Homescreen: React.FC = () => {
   const { data: products, isLoading, error }: any = useGetProductsQuery(
     "Products"
   );
-  console.log(products);
 
   /* const [products, setProducts] = useState<IProducts>();
   useEffect(() => {
@@ -27,7 +26,9 @@ setProducts(data)
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error.data.message || error.error}</Message>
+        <Message variant="danger">
+          {error?.data?.message || error.error}
+        </Message>
       ) : (
         <>
           <h1>Latest Product</h1>
