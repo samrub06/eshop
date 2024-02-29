@@ -34,7 +34,7 @@ const LoginScreen = () => {
       navigate(redirect);
     } catch (error) {
       console.log(error);
-      throw new Error(error.data.message || error.error);
+      throw new Error(error?.data?.message || error?.status);
     }
   };
 

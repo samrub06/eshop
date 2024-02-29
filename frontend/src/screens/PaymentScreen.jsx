@@ -7,13 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { savePaymentMethod } from "../slices/cartSlice";
 
 const PaymentScreen = () => {
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("Paypal");
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-	console.log(shippingAddress);
   useEffect(() => {
     if (!shippingAddress) {
       navigate("/shipping");
@@ -21,7 +20,6 @@ const PaymentScreen = () => {
   }, [shippingAddress, navigate]);
 
 	const submitHandler = (e) =>{
-		console.log("object");
 		e.preventDefault()
 		dispatch(savePaymentMethod(paymentMethod))
 		navigate('/placeorder')
@@ -43,7 +41,8 @@ const PaymentScreen = () => {
               name="paymentMethod"
               value="Paypal"
               checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
+              onChange={(e) => {
+                setPaymentMethod(e.target.value)}}
             ></Form.Check>
           </Col>
         </Form.Group>
