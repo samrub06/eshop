@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import { ToastContainer } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <>
       <Header />
