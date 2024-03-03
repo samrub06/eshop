@@ -1,4 +1,4 @@
-import { Badge, NavDropdown } from "react-bootstrap";
+import { Badge, Image, NavDropdown } from "react-bootstrap";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +29,9 @@ const Header = () => {
 
         <Container>
           <LinkContainer to={"/"}>
-            <Navbar.Brand>Eshop</Navbar.Brand>
+            <Navbar.Brand>
+              <Image src="images/logo.png" />
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
           <Navbar.Collapse id="basic-navbar-nav">

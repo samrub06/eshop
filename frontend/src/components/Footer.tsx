@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
       <Container>
         <Row>
           <Col className="text-center py-3">
-            <p> Eshop &copy {currentYear}</p>
+            <p> Webify Shop / {currentYear}</p>
           </Col>
         </Row>
       </Container>
