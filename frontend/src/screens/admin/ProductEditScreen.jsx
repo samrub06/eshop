@@ -122,6 +122,8 @@ const ProductEditScreen = () => {
                 value={image}
                 onChange={(e) => setImage}
               ></Form.Control>
+              {loadingUpload && <Loader />}
+
               <Form.Control
                 type="file"
                 label="choose file"

@@ -10,7 +10,10 @@
     "client": "npm start --prefix frontend",
     "dev": " concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder.js",
-    "data:destroy": "node backend/seeder.js -d"
+    "data:destroy": "node backend/seeder.js -d",
+"build": "npm install && npm install --prefix frontend && npm run build-frontend",
+"build-frontend": "npm run build --prefix frontend"
+
   },
   "author": "",
   "license": "MIT",
@@ -26,7 +29,6 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.0.3",
-    "salt": "^0.5.5"
+    "nodemon": "^3.0.3"
   }
 }

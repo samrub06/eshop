@@ -6,10 +6,11 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useLogoutMutation } from "../slices/userApiSlice";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/authSlice";
+import SearchBox from "./SearchBox";
 
-const Header: React.FC = () => {
-  const { cartItems } = useSelector((state: any) => state.cart);
-  const { userInfo } = useSelector((state: any) => state.auth);
+const Header = () => {
+  const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
@@ -33,13 +34,14 @@ const Header: React.FC = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <SearchBox />
               <LinkContainer to={"/cart"}>
                 <Nav.Link>
                   <FaShoppingCart />
                   Cart
                   {cartItems.length > 0 && (
                     <Badge pill bg={"success"} style={{ marginLeft: "5px" }}>
-                      {cartItems.reduce((a: any, c: any) => {
+                      {cartItems.reduce((a, c) => {
                         return a + c.qty;
                       }, 0)}
                     </Badge>

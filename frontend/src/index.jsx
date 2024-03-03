@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./assets/styles/bootstrap.custom.css";
 import "./assets/styles/index.css";
 import App from "./App";
+import {HelmetProvider} from "react-helmet-async"
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -28,11 +29,15 @@ import OrderListScreen from "./screens/admin/OrderListScreen";
 import ProductListScreen from "./screens/admin/ProductListScreen";
 import ProductEditScreen from "./screens/admin/ProductEditScreen";
 import UserListScreen from "./screens/admin/UserListScreen";
+import UserEditScreen from "./screens/admin/UserEditScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route index={true} path="/" element={<Homescreen />} />
+      <Route index={true} path="/search/:keyword" element={<Homescreen />} />
+      <Route path="/page/:pageNumber" element={<Homescreen />} />
+      <Route path="/search/:keyword/page/:pageNumber" element={<Homescreen />} />
       <Route path="/:product/:id" element={<ProductScreen />} />
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
@@ -46,9 +51,11 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/" element={<AdminRoute />}>
         <Route path="/admin/orderlist" element={<OrderListScreen />} />
-        <Route path="/admin/productList" element={<ProductListScreen />} />
+        <Route path="/admin/productlist" element={<ProductListScreen />} />
+        <Route path="/admin/productlist/:pageNumber" element={<ProductListScreen />} />
         <Route path="/admin/product/:id/edit" element={<ProductEditScreen />} />
         <Route path="/admin/userlist" element={<UserListScreen />} />
+        <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
       </Route>
     </Route>
   )
@@ -58,9 +65,11 @@ const el = document.getElementById("root");
 const root = ReactDOM.createRoot(el);
 
 root.render(
-  <Provider store={store}>
-    <PayPalScriptProvider deferLoading={true}>
-      <RouterProvider router={router} />
-    </PayPalScriptProvider>
-  </Provider>
+  <HelmetProvider>
+    <Provider store={store}>
+      <PayPalScriptProvider deferLoading={true}>
+        <RouterProvider router={router} />
+      </PayPalScriptProvider>
+    </Provider>
+  </HelmetProvider>
 );
