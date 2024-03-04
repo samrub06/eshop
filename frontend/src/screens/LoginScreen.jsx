@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -32,9 +33,9 @@ const LoginScreen = () => {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
-    } catch (error) {
-      console.log(error);
-      throw new Error(error?.data?.message || error?.status);
+    } catch (err) {
+    toast.error(err?.data?.message || err.error);
+
     }
   };
 

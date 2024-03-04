@@ -9,6 +9,7 @@ import { FormContainer } from "../../components/FormContainer";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { Button, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const ProductEditScreen = () => {
   const { id: productId } = useParams();
@@ -61,7 +62,7 @@ const ProductEditScreen = () => {
         description,
       };
       await updateProduct(updatedProduct).unwrap();
-      alert("Product updated");
+      toast.success("Product updated");
       refetch();
       navigate("/admin/productlist");
     } catch (err) {
@@ -93,7 +94,9 @@ const ProductEditScreen = () => {
         {isLoading ? (
           <Loader />
         ) : error ? (
-          <Message variant="danger">{error?.data?.message}</Message>
+          <Message variant="danger">
+            {error?.data?.message || error?.error}
+          </Message>
         ) : (
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">

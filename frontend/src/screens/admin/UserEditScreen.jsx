@@ -5,8 +5,16 @@ import { FormContainer } from "../../components/FormContainer";
 import Loader from "../../components/Loader";
 import Message from "../../components/Message";
 import { Button, Form } from "react-bootstrap";
-import { useGetUserDetailsQuery, useGetUsersQuery, useUpdateUserMutation } from "../../slices/userApiSlice";
-import { useUpdateProductMutation, useUploadProductImageMutation } from "../../slices/productSlice";
+import {
+  useGetUserDetailsQuery,
+  useGetUsersQuery,
+  useUpdateUserMutation,
+} from "../../slices/userApiSlice";
+import {
+  useUpdateProductMutation,
+  useUploadProductImageMutation,
+} from "../../slices/productSlice";
+import { toast } from "react-toastify";
 
 const UserEditScreen = () => {
   const { id: userId } = useParams();
@@ -18,35 +26,32 @@ const UserEditScreen = () => {
 
   const {
     data: user,
-    refetch, isLoading,
+    refetch,
+    isLoading,
     error,
   } = useGetUserDetailsQuery(userId);
 
-  const [updateUser, { isLoading: loadingUpdate }] =
-    useUpdateUserMutation();
-
+  const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();
 
   useEffect(() => {
     if (user) {
       setName(user.name);
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
-     
     }
   }, [user]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-		try {
-			await updateUser({userId, name, email,isAdmin})
-			refetch()
-			navigate("/admin/userlist")
-		} catch (err) {
-			alert(err.data.message || err.error)
-		}
+    try {
+      await updateUser({ userId, name, email, isAdmin });
+      toast.success("user updated successfully");
+      refetch();
+      navigate("/admin/userlist");
+    } catch (err) {
+      alert(err.data.message || err.error);
+    }
   };
-
-
 
   return (
     <>

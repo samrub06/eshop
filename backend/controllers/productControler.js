@@ -110,7 +110,6 @@ export const deleteProduct = asyncHandler(async (req, res) => {
 
 export const createdProductReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
-  console.log(req.user);
   const product = await Product.findById(req.params.id);
   if (product) {
     const alreadyReviwed = product.reviews.find(
@@ -126,7 +125,6 @@ export const createdProductReview = asyncHandler(async (req, res) => {
       comment,
       user: req.user._id,
     };
-    console.log("review", review);
     product.reviews.push(review);
     product.numReviews = product.reviews.length;
     product.rating =

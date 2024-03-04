@@ -9,13 +9,15 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { Card, Col, Image, Button, ListGroup, Row } from "react-bootstrap";
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams();
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
   const [{ isPending }, payplaDispatch] = usePayPalScriptReducer();
+
   const {
     data: order,
     refetch,
@@ -35,7 +37,7 @@ const OrderScreen = () => {
     try {
       await deliverOrder(orderId);
       refetch();
-      alert("Order delivered");
+      toast.success("Order is delivered");
     } catch (err) {
       alert(err.data.message || err.message);
     }
@@ -77,7 +79,7 @@ const OrderScreen = () => {
     try {
       await payOrder({ orderId, details: { payer: {} } });
       refetch();
-      alert("Order is paid");
+      toast.success("Order is paid");
     } catch (err) {
       alert(err?.data?.message || err.error);
     }
@@ -104,7 +106,7 @@ const OrderScreen = () => {
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger" />
+    <Message variant="danger">{error?.data?.message || error?.error}</Message>
   ) : (
     <>
       <h1>Order {order._id}</h1>

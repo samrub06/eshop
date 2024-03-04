@@ -7,20 +7,21 @@ import {
   useDeleteUserMutation,
   useGetUsersQuery,
 } from "../../slices/userApiSlice";
+import { toast } from "react-toastify";
 
 const UserListScreen = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
 
   const [deleteUser, { isLoading: loadingDelete }] = useDeleteUserMutation();
-	
+
   const deleteHandler = async (id) => {
     if (window.confirm("Are you sure")) {
       try {
         await deleteUser(id);
-				alert("User deleted")
+        alert("User deleted");
         refetch();
       } catch (err) {
-        alert(err?.data?.message || err?.error);
+        toast.error(err?.data?.message || err.error);
       }
     }
   };

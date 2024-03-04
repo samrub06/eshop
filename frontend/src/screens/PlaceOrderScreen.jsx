@@ -7,6 +7,7 @@ import Message from "../components/Message"
 import { useCreateOrderMutation } from "../slices/ordersApi"
 import Loader from "../components/Loader"
 import { clearCartItems } from "../slices/cartSlice"
+import { toast } from "react-toastify"
 
 const PlaceOrderScreen = () => {
 const navigate = useNavigate()
@@ -38,8 +39,8 @@ const placeOrderHandler = async() =>{
     }).unwrap();
 		dispatch(clearCartItems())
 		navigate(`/order/${res._id}`)
-	} catch (error) {
-		alert(error.message)
+	} catch (err) {
+		toast.error(err);
 	}
 
 }
@@ -128,9 +129,13 @@ const placeOrderHandler = async() =>{
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-							<ListGroup.Item>
-								{error && <Message variant="danger">{error}</Message>}
-							</ListGroup.Item>
+              <ListGroup.Item>
+                {error && (
+                  <Message variant="danger">
+                    {error?.data?.message || error?.error}
+                  </Message>
+                )}
+              </ListGroup.Item>
               <ListGroup.Item>
                 <Button
                   type="button"
@@ -140,7 +145,7 @@ const placeOrderHandler = async() =>{
                 >
                   PlaceOrder
                 </Button>
-								{isLoading && <Loader />}
+                {isLoading && <Loader />}
               </ListGroup.Item>
             </ListGroup>
           </Card>

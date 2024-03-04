@@ -8,6 +8,7 @@ import { useGetMyOrdersQuery } from "../slices/ordersApi";
 import Message from "../components/Message";
 import { FaTimes } from "react-icons/fa";
 import { LinkContainer } from "react-router-bootstrap";
+import { toast } from "react-toastify";
 const ProfileScreen = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +26,7 @@ const ProfileScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Password Not Match");
+      toast.error("Passwords do not match");
     } else {
       try {
         const res = await updateProfile({
@@ -40,7 +41,6 @@ const ProfileScreen = () => {
         alert(error?.data?.message || error?.error);
       }
     }
-    console.log("submitHandler");
   };
   useEffect(() => {
     if (userInfo) {
@@ -136,13 +136,13 @@ const ProfileScreen = () => {
                       <FaTimes style={{ color: "red" }} />
                     )}
                   </td>
-									<td>
-										<LinkContainer to={`/order/${order._id}`}>
-											<Button className="btn-sm" variant="light">
-												Details
-											</Button>
-										</LinkContainer>
-									</td>
+                  <td>
+                    <LinkContainer to={`/order/${order._id}`}>
+                      <Button className="btn-sm" variant="light">
+                        Details
+                      </Button>
+                    </LinkContainer>
+                  </td>
                 </tr>
               ))}
             </tbody>

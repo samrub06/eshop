@@ -10,6 +10,7 @@ import Message from "../../components/Message";
 import { LinkContainer } from "react-router-bootstrap";
 import { useParams } from "react-router-dom";
 import Paginate from "../Paginate";
+import { toast } from "react-toastify";
 
 const ProductListScreen = () => {
   const { pageNumber } = useParams();
@@ -30,7 +31,7 @@ const ProductListScreen = () => {
         await deleteProduct(id);
         refetch();
       } catch (err) {
-        alert(err?.data?.message || err.error);
+        toast.error(err?.data?.message || err.error);
       }
     }
   };

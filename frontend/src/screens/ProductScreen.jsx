@@ -19,6 +19,7 @@ import Message from "../components/Message";
 import { addToCart } from "../slices/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 const ProductScreen = () => {
   const { id: productId } = useParams();
@@ -57,7 +58,7 @@ const ProductScreen = () => {
         comment,
       }).unwrap();
       refetch();
-      alert("review Submitted");
+      toast.success("Review created successfully");
       setRating(0);
       setComment("");
     } catch (err) {
