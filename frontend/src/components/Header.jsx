@@ -29,7 +29,12 @@ const Header = () => {
   
   return (
     <header>
-      <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+      <Navbar
+        variant="dark"
+        expand="md"
+        collapseOnSelect
+        className="navbar-container"
+      >
         {/* Container: the inner eleemts of the nav don't strectall the way to the edges of the window */}
 
         <Container>
@@ -40,8 +45,8 @@ const Header = () => {
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
           <Navbar.Collapse id="basic-navbar-nav">
+            <SearchBox />
             <Nav className="ms-auto">
-              <SearchBox />
               <LinkContainer to={"/cart"}>
                 <Nav.Link>
                   <FaShoppingCart />
