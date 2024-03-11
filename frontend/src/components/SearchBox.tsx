@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 
-const SearchBox = () => {
+const SearchBox: React.FC = () => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
   const [keyword, setKeyword] = useState(urlKeyword || "");
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (keyword.trim()) {
       setKeyword("");

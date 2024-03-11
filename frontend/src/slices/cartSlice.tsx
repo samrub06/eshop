@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { updateCart } from "../utils/cartUtils";
 
-interface Product {
+export interface Product {
   _id: string;
   name: string;
   image: string;
@@ -57,11 +57,11 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload;
       return updateCart(state);
     },
-    clearCartItems: (state, action) => {
+    clearCartItems: (state, action: PayloadAction<any>) => {
       state.cartItems = [];
       return updateCart(state);
     },
-    resetCart: (state, action) => {
+    resetCart: (state, action: PayloadAction<void>) => {
       state = initialState;
     },
   },

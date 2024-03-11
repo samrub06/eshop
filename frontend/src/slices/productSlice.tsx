@@ -1,5 +1,6 @@
 import { PRODUCTS_URL, UPLOAD_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
+import { Product } from "./cartSlice";
 
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -64,7 +65,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Product"],
     }),
-    getTopProducts: builder.query({
+    getTopProducts: builder.query<Product[], void>({
       query: () => ({
         url: `${PRODUCTS_URL}/top`,
       }),

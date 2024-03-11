@@ -8,10 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/authSlice";
 import SearchBox from "./SearchBox";
 import { resetCart } from "../slices/cartSlice";
+import { RootState } from "../hooks";
 
-const Header = () => {
-  const { cartItems } = useSelector((state) => state.cart);
-  const { userInfo } = useSelector((state) => state.auth);
+const Header: React.FC = () => {
+  const { cartItems } = useSelector((state: RootState) => state.cart);
+  const { userInfo } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoutApiCall] = useLogoutMutation();
@@ -26,7 +27,7 @@ const Header = () => {
       console.error(error);
     }
   };
-  
+
   return (
     <header>
       <Navbar
@@ -54,7 +55,7 @@ const Header = () => {
                   {cartItems.length > 0 && (
                     <Badge pill bg={"success"} style={{ marginLeft: "5px" }}>
                       {cartItems.reduce((a, c) => {
-                        return a + c.qty;
+                        return a + (c.qty !== undefined ? c.qty : 0);
                       }, 0)}
                     </Badge>
                   )}

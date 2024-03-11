@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface userInfoState {
   _id: string;
+  name: string;
   email: string;
   isAdmin: boolean;
 }
@@ -23,7 +24,7 @@ const authSlice = createSlice({
       state.userInfo = action.payload;
       localStorage.setItem("userInfo", JSON.stringify(action.payload));
     },
-    logout: (state, action) => {
+    logout: (state, action: PayloadAction<void>) => {
       state.userInfo = null;
       localStorage.clear();
     },
