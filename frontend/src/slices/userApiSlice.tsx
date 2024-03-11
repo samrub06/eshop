@@ -11,7 +11,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: data,
       }),
-      keepUnusedDataFor: 5,
     }),
     register: builder.mutation({
       query: (data) => ({

@@ -1,15 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { updateCart } from "../utils/cartUtils";
 
-const initialState = localStorage.getItem("cart")
-  ? JSON.parse(localStorage.getItem("cart"))
+interface Product {
+  _id: string;
+  name: string;
+  image: string;
+  brand: string;
+  category: string;
+  description: string;
+  rating: number;
+  numReviews: number;
+  price: number;
+  countInStock: number;
+  __v: number;
+  createdAt: string;
+  updatedAt: string;
+  qty?: number; // qty est facultatif car il n'est pas présent dans toutes les données de produit
+}
+
+interface cartState {
+  cartItems: Product[];
+  shippingAddress: {};
+  paymentMethod: string;
+}
+
+const initialState: cartState = localStorage.getItem("cart")
+  ? JSON.parse(localStorage.getItem("cart") || "{}")
   : { cartItems: [], shippingAddress: {}, paymentMethod: "Paypal" };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (state, action) => {
+    addToCart: (state, action: PayloadAction<Product>) => {
       const item = action.payload;
       const existItem = state.cartItems.find((x) => x._id === item._id);
       if (existItem) {
@@ -22,15 +45,15 @@ const cartSlice = createSlice({
 
       return updateCart(state);
     },
-    removeToCart: (state, action) => {
+    removeToCart: (state, action: PayloadAction<string>) => {
       state.cartItems = state.cartItems.filter((x) => x._id !== action.payload);
       return updateCart(state);
     },
-    saveShippingAddress: (state, action) => {
+    saveShippingAddress: (state, action: PayloadAction<string>) => {
       state.shippingAddress = action.payload;
       return updateCart(state);
     },
-    savePaymentMethod: (state, action) => {
+    savePaymentMethod: (state, action: PayloadAction<string>) => {
       state.paymentMethod = action.payload;
       return updateCart(state);
     },

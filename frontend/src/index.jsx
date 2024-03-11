@@ -14,7 +14,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Homescreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { Provider } from "react-redux";
-import store from "./store.js";
+import store from "./store.tsx";
 import CartScreen from "./screens/CartScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
