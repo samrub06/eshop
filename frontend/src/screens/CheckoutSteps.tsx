@@ -1,9 +1,21 @@
-import { Nav } from "react-bootstrap"
+import React from "react";
+import { Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const CheckoutSteps = ({step1,step2,step3,step4}) => {
+interface ChildProps {
+  step1: boolean;
+  step2?: boolean;
+  step3?: boolean;
+  step4?: boolean;
+}
 
-	return (
+const CheckoutSteps: React.FC<ChildProps> = ({
+  step1,
+  step2,
+  step3,
+  step4,
+}) => {
+  return (
     <Nav className="justify-content-center mb-4">
       <Nav.Item>
         {step1 ? (
@@ -43,5 +55,5 @@ const CheckoutSteps = ({step1,step2,step3,step4}) => {
       </Nav.Item>
     </Nav>
   );
-}
-export default CheckoutSteps
+};
+export default CheckoutSteps;

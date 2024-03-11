@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 interface ChildProps {
   title: string;
   description?: string;
-  keywords: string;
+  keywords?: string;
 }
 
 const Meta: React.FC<ChildProps> = ({ title, description, keywords }) => {

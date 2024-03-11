@@ -10,27 +10,29 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import Message from "../components/Message";
-import { addToCart, removeToCart } from "../slices/cartSlice";
+import { IProduct, addToCart, removeToCart } from "../slices/cartSlice";
+import { RootState } from "../hooks";
 
 const CartScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state: RootState) => state.cart);
   const { cartItems } = cart;
 
-  const addToCartHandler = async(product, qty) => {
+  const addToCartHandler = async (product: IProduct, qty: number) => {
     dispatch(addToCart({ ...product, qty }));
   };
 
-  const removeToCarHandler = async(id) =>{
+  const removeToCarHandler = async (id: string) => {
     dispatch(removeToCart(id));
-  }
-  
-  const checkoutHandler = async () => {
-    navigate("/login?redirect=/shipping")  };
+  };
 
-    return (
+  const checkoutHandler = async () => {
+    navigate("/login?redirect=/shipping");
+  };
+
+  return (
     <Row>
       <Col md={8}>
         <h1 style={{ marginBottom: "20px" }}>Shopping Cart</h1>
@@ -52,7 +54,9 @@ const CartScreen = () => {
                     <Form.Control
                       as="select"
                       value={item.qty}
-                      onChange={(e) => {addToCartHandler(item, Number(e.target.value))}}
+                      onChange={(e) => {
+                        addToCartHandler(item, Number(e.target.value));
+                      }}
                     >
                       {[...Array(item?.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
@@ -62,7 +66,15 @@ const CartScreen = () => {
                     </Form.Control>
                   </Col>
                   <Col md={2}>
-                    <Button type="button" variant="light" onClick={(e)=>{removeToCarHandler(item._id);}}>X</Button>
+                    <Button
+                      type="button"
+                      variant="light"
+                      onClick={(e) => {
+                        removeToCarHandler(item._id);
+                      }}
+                    >
+                      X
+                    </Button>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -76,12 +88,19 @@ const CartScreen = () => {
             <ListGroup.Item>
               <h2>
                 Subtotal (
-                {cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                items
+                {cartItems.reduce(
+                  (acc, item) => acc + (item.qty !== undefined ? item.qty : 0),
+                  0
+                )}
+                ) items
               </h2>
               $
               {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .reduce(
+                  (acc, item) =>
+                    acc + (item.qty !== undefined ? item.qty : 0) * item.price,
+                  0
+                )
                 .toFixed(2)}
             </ListGroup.Item>
             <ListGroup.Item>
