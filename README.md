@@ -1,10 +1,12 @@
 # React Eshop eCommerce Platform
 
-> eCommerce platform built with the MERN stack & Redux.
+> React Typescript
+> Redux Toolkit
+> MangoDB & NodeJS 
 
 <img src="./frontend/public/images/webify.png">
 
-This project is part of my MERN Stack From Scratch. It is a full-featured shopping cart with PayPal & credit/debit payments.
+This project is part of my eCommerce platform built with the MERN stack & Redux. It is a full-featured shopping cart with PayPal & credit/debit payments.
 
 
 
