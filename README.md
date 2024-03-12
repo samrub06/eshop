@@ -1,8 +1,8 @@
 # React Eshop eCommerce Platform
 
-> React Typescript
-> Redux Toolkit
-> MangoDB & NodeJS 
+> - React Typescript
+> - Redux Toolkit
+> - MangoDB & NodeJS 
 
 <img src="./frontend/public/images/webify.png">
 
