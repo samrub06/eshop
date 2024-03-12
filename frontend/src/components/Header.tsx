@@ -42,7 +42,7 @@ const Header: React.FC = () => {
         <Container>
           <LinkContainer to={'/'}>
             <Navbar.Brand>
-              <Image src={`${process.env.PUBLIC_URL} + /logo.png`} alt="Logo" />
+              <Image src={`./images/logo.png`} alt="Logo" />
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>
