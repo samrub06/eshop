@@ -14,7 +14,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Homescreen from "./screens/HomeScreen";
 import ProductScreen from "./screens/ProductScreen";
 import { Provider } from "react-redux";
-import store from "./store.tsx";
+import store from "./store";
 import CartScreen from "./screens/CartScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
@@ -67,7 +67,7 @@ const root = ReactDOM.createRoot(el);
 root.render(
   <HelmetProvider>
     <Provider store={store}>
-      <PayPalScriptProvider deferLoading={true}>
+      <PayPalScriptProvider  deferLoading={true}>
         <RouterProvider router={router} />
       </PayPalScriptProvider>
     </Provider>

@@ -10,6 +10,7 @@ import SearchBox from './SearchBox';
 import { resetCart } from '../slices/cartSlice';
 import { RootState } from '../hooks';
 
+
 const Header: React.FC = () => {
   const { cartItems } = useSelector((state: RootState) => state.cart);
   const { userInfo } = useSelector((state: RootState) => state.auth);
@@ -41,7 +42,7 @@ const Header: React.FC = () => {
         <Container>
           <LinkContainer to={'/'}>
             <Navbar.Brand>
-              <Image src="images/logo.png" />
+              <Image src={`${process.env.PUBLIC_URL} + /logo.png`} alt="Logo" />
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav"></Navbar.Toggle>

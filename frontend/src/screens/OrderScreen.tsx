@@ -50,7 +50,8 @@ const OrderScreen: React.FC = () => {
 payplaDispatch({
   type: 'resetOptions',
   value: {
-    clientId: 'paypal.clientId', // Assurez-vous que 'paypal.clientId' est correctement défini
+    clientId:
+      'Afo0OvhYH_ne8DJ-yN2O_pYxoDsJHsGgrsP9VF5LYCPyU0v8u5aDqqM90LxNS3OABqvpudRn_ATbtPQe', // Assurez-vous que 'paypal.clientId' est correctement défini
     currency: 'USD'
   }
 });
@@ -68,8 +69,8 @@ payplaDispatch({
     }
   }, [order, paypal, payplaDispatch, loadingPayPal, errorPayPal]);
 
-  function onApprove(data, actions) {
-    return actions.order.capture().then(async function (details) {
+  function onApprove(data : any, actions: any) {
+    return actions.order.capture().then(async function (details : any) {
       try {
         await payOrder({ orderId, details });
         refetch();
@@ -90,11 +91,11 @@ payplaDispatch({
     }
   }
 
-  function onError(err) {
+  function onError(err : any) {
     alert(err.message);
   }
 
-  function createOrder(data, actions) {
+  function createOrder(data : any, actions : any) {
     return actions.order
       .create({
         purchase_units: [
@@ -103,7 +104,7 @@ payplaDispatch({
           }
         ]
       })
-      .then((orderID) => {
+      .then((orderID : any) => {
         return orderID;
       });
   }
@@ -153,7 +154,7 @@ payplaDispatch({
             </ListGroup.Item>
             <ListGroup.Item>
               <h2>Order Items</h2>
-              {order.orderItems.map((item, index) => (
+              {order.orderItems.map((item : any, index: number) => (
                 <ListGroup.Item key={index}>
                   <Row>
                     <Col md={1}>
@@ -197,6 +198,7 @@ payplaDispatch({
               </ListGroup.Item>
               {!order.isPaid && (
                 <ListGroup.Item>
+                  
                   {loadingPay && <Loader />}
                   {isPending ? (
                     <Loader />
@@ -221,6 +223,7 @@ payplaDispatch({
                   )}
                 </ListGroup.Item>
               )}
+              
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&

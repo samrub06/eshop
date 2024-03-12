@@ -24,7 +24,6 @@ if(!cart?.shippingAddress?.address){
 }
 }, [cart?.paymentMethod, cart?.shippingAddress,navigate])
 
-console.log(cart.cartItems);
 
 const placeOrderHandler = async() =>{
 	try {
@@ -56,8 +55,8 @@ const placeOrderHandler = async() =>{
               <p>
                 <strong>Address</strong>
                 {cart.shippingAddress.address},{cart.shippingAddress.city}
-                {""}
-                {cart.shippingAddress.postalCode},{""}
+                {''}
+                {cart.shippingAddress.postalCode},{''}
                 {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
@@ -129,13 +128,15 @@ const placeOrderHandler = async() =>{
                   <Col>${cart.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              <ListGroup.Item>
-                {error && (
+
+              {error && (
+                <ListGroup.Item>
                   <Message variant="danger">
                     {error?.data?.message || error?.error}
                   </Message>
-                )}
-              </ListGroup.Item>
+                </ListGroup.Item>
+              )}
+
               <ListGroup.Item>
                 <Button
                   type="button"
