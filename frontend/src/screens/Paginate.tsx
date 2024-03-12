@@ -1,6 +1,6 @@
-import React from "react";
-import { Pagination } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import React from 'react';
+import { Pagination } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 interface ChildProps {
   pages: number;
@@ -13,7 +13,7 @@ const Paginate: React.FC<ChildProps> = ({
   pages,
   page,
   isAdmin = false,
-  keyword = "",
+  keyword = ''
 }) => {
   if (pages <= 1) {
     return null; // Pas de pagination nécessaire s'il n'y a qu'une seule page

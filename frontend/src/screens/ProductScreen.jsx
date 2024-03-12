@@ -173,7 +173,7 @@ const ProductScreen = () => {
                   </ListGroup.Item>
                 ))}
                 <ListGroup.Item>
-                  <h2>Write a Customer</h2>
+                  <h2>Write a Review</h2>
                   {loadingProductReview && <Loader />}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>

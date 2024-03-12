@@ -1,6 +1,6 @@
-import React from "react";
-import { Nav } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import React from 'react';
+import { Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 interface ChildProps {
   step1: boolean;
@@ -13,7 +13,7 @@ const CheckoutSteps: React.FC<ChildProps> = ({
   step1,
   step2,
   step3,
-  step4,
+  step4
 }) => {
   return (
     <Nav className="justify-content-center mb-4">

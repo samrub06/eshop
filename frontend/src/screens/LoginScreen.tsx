@@ -7,6 +7,7 @@ import { useLoginMutation } from "../slices/userApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
+import { RootState } from "../hooks";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const LoginScreen = () => {
 
   const [login, { isLoading }] = useLoginMutation();
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state: RootState) => state.auth);
   const { search } = useLocation();
   const sp = new URLSearchParams(search);
   const redirect = sp.get("redirect") || "/";
@@ -27,15 +28,14 @@ const LoginScreen = () => {
     }
   }, [userInfo, redirect, navigate]);
 
-  const submitHandler = async (e) => {
+  const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       navigate(redirect);
-    } catch (err) {
-    toast.error(err?.data?.message || err.error);
-
+    } catch (err : any) {
+      toast.error(err || err.error);
     }
   };
 

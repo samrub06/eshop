@@ -1,19 +1,20 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom';
 import {
   useDeliverOrderMutation,
   useGetOrderDetailsQuery,
   useGetPayPalClientIdQuery,
-  usePayOrderMutation,
-} from "../slices/ordersApi";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { Card, Col, Image, Button, ListGroup, Row } from "react-bootstrap";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+  usePayOrderMutation
+} from '../slices/ordersApi';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { Card, Col, Image, Button, ListGroup, Row } from 'react-bootstrap';
+import { DISPATCH_ACTION, PayPalButtons, SCRIPT_LOADING_STATE, usePayPalScriptReducer } from '@paypal/react-paypal-js';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { RootState } from '../hooks';
 
-const OrderScreen = () => {
+const OrderScreen: React.FC = () => {
   const { id: orderId } = useParams();
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
   const [{ isPending }, payplaDispatch] = usePayPalScriptReducer();
@@ -22,23 +23,23 @@ const OrderScreen = () => {
     data: order,
     refetch,
     isLoading,
-    error,
+    error
   } = useGetOrderDetailsQuery(orderId);
   const {
     data: paypal,
     isLoading: loadingPayPal,
-    error: errorPayPal,
-  } = useGetPayPalClientIdQuery();
+    isError: errorPayPal
+  } = useGetPayPalClientIdQuery('');
 
-  const { userInfo } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state: RootState) => state.auth);
   const [deliverOrder, { isLoading: loadingDeliver }] =
     useDeliverOrderMutation();
   const deliverOrderHandler = async () => {
     try {
       await deliverOrder(orderId);
       refetch();
-      toast.success("Order is delivered");
-    } catch (err) {
+      toast.success('Order is delivered');
+    } catch (err: any) {
       alert(err.data.message || err.message);
     }
   };
@@ -46,14 +47,18 @@ const OrderScreen = () => {
   useEffect(() => {
     if (!errorPayPal && !loadingPayPal && paypal.clientId) {
       const loadPayPalScript = async () => {
-        payplaDispatch({
-          type: "restOptions",
-          value: {
-            "client-id": "paypal.clientId",
-            currency: "USD",
-          },
-        });
-        payplaDispatch({ type: "setLoadingStatus", value: "pending" });
+payplaDispatch({
+  type: 'resetOptions',
+  value: {
+    clientId: 'paypal.clientId', // Assurez-vous que 'paypal.clientId' est correctement défini
+    currency: 'USD'
+  }
+});
+
+payplaDispatch({
+  type: DISPATCH_ACTION.LOADING_STATUS,
+  value: { state: SCRIPT_LOADING_STATE.PENDING, message: 'pending' }
+});
       };
       if (order && !order.isPaid) {
         if (!window.paypal) {
@@ -68,19 +73,19 @@ const OrderScreen = () => {
       try {
         await payOrder({ orderId, details });
         refetch();
-        alert("success");
-      } catch (error) {
+        alert('success');
+      } catch (error: any) {
         alert(error?.data?.message || error.message);
       }
     });
   }
 
-  async function onApproveTest(data, actions) {
+  async function onApproveTest() {
     try {
       await payOrder({ orderId, details: { payer: {} } });
       refetch();
-      toast.success("Order is paid");
-    } catch (err) {
+      toast.success('Order is paid');
+    } catch (err: any) {
       alert(err?.data?.message || err.error);
     }
   }
@@ -94,9 +99,9 @@ const OrderScreen = () => {
       .create({
         purchase_units: [
           {
-            amount: { value: order.totalPrice },
-          },
-        ],
+            amount: { value: order.totalPrice }
+          }
+        ]
       })
       .then((orderID) => {
         return orderID;
@@ -106,7 +111,7 @@ const OrderScreen = () => {
   return isLoading ? (
     <Loader />
   ) : error ? (
-    <Message variant="danger">{error?.data?.message || error?.error}</Message>
+    <Message variant="danger">{error}</Message>
   ) : (
     <>
       <h1>Order {order._id}</h1>
@@ -120,9 +125,9 @@ const OrderScreen = () => {
               </p>
               <strong>Email:</strong> {order.user.email}
               <p>
-                <strong>Address</strong> {order.shippingAddress.address},{" "}
+                <strong>Address</strong> {order.shippingAddress.address},{' '}
                 {order.shippingAddress.city}
-                {""}
+                {''}
                 {order.shippingAddress.postalCode},
                 {order.shippingAddress.country}
               </p>
@@ -168,7 +173,7 @@ const OrderScreen = () => {
         </Col>
         <Col md={4}>
           <Card>
-            <ListGroup variant={"flush"}>
+            <ListGroup variant={'flush'}>
               <ListGroup.Item>
                 <h2> Order Summary</h2>
               </ListGroup.Item>
@@ -199,13 +204,13 @@ const OrderScreen = () => {
                     <div>
                       <Button
                         onClick={onApproveTest}
-                        style={{ marginBottom: "10px" }}
+                        style={{ marginBottom: '10px' }}
                       >
-                        {" "}
+                        {' '}
                         Test Pay Order
                       </Button>
                       <div>
-                        {" "}
+                        {' '}
                         <PayPalButtons
                           createOrder={createOrder}
                           onApprove={onApprove}
@@ -227,7 +232,7 @@ const OrderScreen = () => {
                       className="btn btn-block"
                       onClick={deliverOrderHandler}
                     >
-                      {" "}
+                      {' '}
                       Mark as Delivered
                     </Button>
                   </ListGroup.Item>

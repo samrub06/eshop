@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { FaSearch } from 'react-icons/fa';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const SearchBox: React.FC = () => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
-  const [keyword, setKeyword] = useState(urlKeyword || "");
+  const [keyword, setKeyword] = useState(urlKeyword || '');
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (keyword.trim()) {
-      setKeyword("");
+      setKeyword('');
       navigate(`search/${keyword}`);
     } else {
-      navigate("/");
+      navigate('/');
     }
   };
 
@@ -23,11 +23,11 @@ const SearchBox: React.FC = () => {
       <div className="position-relative w-100">
         <FaSearch
           style={{
-            position: "absolute",
-            top: "50%",
-            right: "15px",
-            transform: "translateY(-50%)",
-            color: "#6c757d",
+            position: 'absolute',
+            top: '50%',
+            right: '15px',
+            transform: 'translateY(-50%)',
+            color: '#6c757d'
           }}
         />
         <Form.Control

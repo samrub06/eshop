@@ -1,10 +1,10 @@
-import React, { ReactNode } from "react";
-import { Alert } from "react-bootstrap";
-import { Variant } from "react-bootstrap/esm/types";
+import React from 'react';
+import { Alert } from 'react-bootstrap';
+import { Variant } from 'react-bootstrap/esm/types';
 
 type Props = {
   variant?: Variant;
-  children: ReactNode;
+  children: any;
 };
 
 const Message: React.FC<Props> = ({ variant, children }) => {
@@ -13,7 +13,7 @@ const Message: React.FC<Props> = ({ variant, children }) => {
 };
 
 Message.defaultProps = {
-  variant: "info",
+  variant: 'info'
 };
 
 export default Message;

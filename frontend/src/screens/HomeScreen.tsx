@@ -1,21 +1,23 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row } from 'react-bootstrap';
 
-import { useGetProductsQuery } from "../slices/productSlice";
-import Loader from "../components/Loader";
-import Message from "../components/Message";
-import { Link, useParams } from "react-router-dom";
-import Paginate from "./Paginate";
-import ProductCarousel from "../components/ProductCarousel";
-import Meta from "../components/Meta";
-import { IProduct } from "../slices/cartSlice";
-import Product from "../components/Product";
+import { useGetProductsQuery } from '../slices/productSlice';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
+import { Link, useParams } from 'react-router-dom';
+import Paginate from './Paginate';
+import ProductCarousel from '../components/ProductCarousel';
+import Meta from '../components/Meta';
+import { IProduct } from '../slices/cartSlice';
+import Product from '../components/Product';
 
 const Homescreen: React.FC = () => {
   const { pageNumber, keyword } = useParams();
-  const { data, isLoading, isError } = useGetProductsQuery({
+  const { data, isLoading, error } = useGetProductsQuery({
     keyword,
-    pageNumber,
+    pageNumber
   });
+
+
 
   return (
     <>
@@ -28,8 +30,8 @@ const Homescreen: React.FC = () => {
       )}
       {isLoading ? (
         <Loader />
-      ) : isError ? (
-        <Message variant="danger">{isError}</Message>
+      ) : error ? (
+        <Message variant="danger">{JSON.stringify(error)}</Message>
       ) : (
         <>
           <Meta title="Eshop - Home" />
@@ -44,7 +46,7 @@ const Homescreen: React.FC = () => {
           <Paginate
             pages={data.pages}
             page={data.page}
-            keyword={keyword ? keyword : ""}
+            keyword={keyword ? keyword : ''}
           />
         </>
       )}

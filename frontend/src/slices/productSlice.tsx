@@ -1,6 +1,6 @@
-import { PRODUCTS_URL, UPLOAD_URL } from "../constants";
-import { apiSlice } from "./apiSlice";
-import { IProduct } from "./cartSlice";
+import { PRODUCTS_URL, UPLOAD_URL } from '../constants';
+import { apiSlice } from './apiSlice';
+import { IProduct } from './cartSlice';
 
 export const productsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,68 +9,68 @@ export const productsApiSlice = apiSlice.injectEndpoints({
         url: PRODUCTS_URL,
         params: {
           keyword,
-          pageNumber,
+          pageNumber
         },
-        credentials: "include",
+        credentials: 'include'
       }),
-      providesTags: ["Product"],
-      keepUnusedDataFor: 5,
+      providesTags: ['Product'],
+      keepUnusedDataFor: 5
     }),
     getProductById: builder.query({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
-        credentials: "include",
+        credentials: 'include'
       }),
-      providesTags: ["Product"],
-      keepUnusedDataFor: 5,
+      providesTags: ['Product'],
+      keepUnusedDataFor: 5
     }),
     createProduct: builder.mutation({
       query: () => ({
         url: PRODUCTS_URL,
-        method: "POST",
-        credentials: "include",
+        method: 'POST',
+        credentials: 'include'
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ['Product']
     }),
     updateProduct: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data._id}`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
-        credentials: "include",
+        credentials: 'include'
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ['Product']
     }),
     uploadProductImage: builder.mutation({
       query: (data) => ({
         url: UPLOAD_URL,
-        method: "POST",
+        method: 'POST',
         body: data,
-        credentials: "include",
-      }),
+        credentials: 'include'
+      })
     }),
     deleteProduct: builder.mutation({
       query: (productId) => ({
         url: `${PRODUCTS_URL}/${productId}`,
-        method: "DELETE",
-        credentials: "include",
-      }),
+        method: 'DELETE',
+        credentials: 'include'
+      })
     }),
     createReview: builder.mutation({
       query: (data) => ({
         url: `${PRODUCTS_URL}/${data.productId}/reviews`,
-        method: "POST",
+        method: 'POST',
         body: data,
-        credentials: "include",
+        credentials: 'include'
       }),
-      invalidatesTags: ["Product"],
+      invalidatesTags: ['Product']
     }),
     getTopProducts: builder.query<IProduct[], void>({
       query: () => ({
-        url: `${PRODUCTS_URL}/top`,
-      }),
-    }),
-  }),
+        url: `${PRODUCTS_URL}/top`
+      })
+    })
+  })
 });
 
 export const {
@@ -81,5 +81,5 @@ export const {
   useUploadProductImageMutation,
   useDeleteProductMutation,
   useCreateReviewMutation,
-  useGetTopProductsQuery,
+  useGetTopProductsQuery
 } = productsApiSlice;

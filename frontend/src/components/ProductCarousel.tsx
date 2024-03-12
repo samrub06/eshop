@@ -1,9 +1,9 @@
-import { Carousel, Image } from "react-bootstrap";
-import { useGetTopProductsQuery } from "../slices/productSlice";
-import Loader from "./Loader";
-import Message from "./Message";
-import "../styles/index.css";
-import { Link } from "react-router-dom";
+import { Carousel, Image } from 'react-bootstrap';
+import { useGetTopProductsQuery } from '../slices/productSlice';
+import Loader from './Loader';
+import Message from './Message';
+import '../styles/index.css';
+import { Link } from 'react-router-dom';
 
 const ProductCarousel = () => {
   const { data, isLoading, isError } = useGetTopProductsQuery();

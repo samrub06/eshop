@@ -5,13 +5,13 @@ import {
   ListGroup,
   Row,
   Button,
-  Card,
-} from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import Message from "../components/Message";
-import { IProduct, addToCart, removeToCart } from "../slices/cartSlice";
-import { RootState } from "../hooks";
+  Card
+} from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
+import Message from '../components/Message';
+import { IProduct, addToCart, removeToCart } from '../slices/cartSlice';
+import { RootState } from '../hooks';
 
 const CartScreen = () => {
   const navigate = useNavigate();
@@ -29,13 +29,13 @@ const CartScreen = () => {
   };
 
   const checkoutHandler = async () => {
-    navigate("/login?redirect=/shipping");
+    navigate('/login?redirect=/shipping');
   };
 
   return (
     <Row>
       <Col md={8}>
-        <h1 style={{ marginBottom: "20px" }}>Shopping Cart</h1>
+        <h1 style={{ marginBottom: '20px' }}>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message>Your cart is empty</Message>
         ) : (
@@ -78,7 +78,7 @@ const CartScreen = () => {
                   </Col>
                 </Row>
               </ListGroup.Item>
-            ))}{" "}
+            ))}{' '}
           </ListGroup>
         )}
       </Col>

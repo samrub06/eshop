@@ -1,5 +1,5 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { updateCart } from "../utils/cartUtils";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { updateCart } from '../utils/cartUtils';
 
 export interface IProduct {
   _id: string;
@@ -24,12 +24,12 @@ interface cartState {
   paymentMethod: string;
 }
 
-const initialState: cartState = localStorage.getItem("cart")
-  ? JSON.parse(localStorage.getItem("cart") || "{}")
-  : { cartItems: [], shippingAddress: {}, paymentMethod: "Paypal" };
+const initialState: cartState = localStorage.getItem('cart')
+  ? JSON.parse(localStorage.getItem('cart') || '{}')
+  : { cartItems: [], shippingAddress: {}, paymentMethod: 'Paypal' };
 
 const cartSlice = createSlice({
-  name: "cart",
+  name: 'cart',
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<IProduct>) => {
@@ -63,8 +63,8 @@ const cartSlice = createSlice({
     },
     resetCart: (state, action: PayloadAction<void>) => {
       state = initialState;
-    },
-  },
+    }
+  }
 });
 
 export const {
@@ -73,7 +73,7 @@ export const {
   saveShippingAddress,
   savePaymentMethod,
   clearCartItems,
-  resetCart,
+  resetCart
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

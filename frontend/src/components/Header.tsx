@@ -1,14 +1,14 @@
-import { Badge, Image, NavDropdown } from "react-bootstrap";
-import { Navbar, Nav, Container } from "react-bootstrap";
-import { FaShoppingCart, FaUser } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { LinkContainer } from "react-router-bootstrap";
-import { useLogoutMutation } from "../slices/userApiSlice";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../slices/authSlice";
-import SearchBox from "./SearchBox";
-import { resetCart } from "../slices/cartSlice";
-import { RootState } from "../hooks";
+import { Badge, Image, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, Container } from 'react-bootstrap';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { LinkContainer } from 'react-router-bootstrap';
+import { useLogoutMutation } from '../slices/userApiSlice';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../slices/authSlice';
+import SearchBox from './SearchBox';
+import { resetCart } from '../slices/cartSlice';
+import { RootState } from '../hooks';
 
 const Header: React.FC = () => {
   const { cartItems } = useSelector((state: RootState) => state.cart);
@@ -19,10 +19,10 @@ const Header: React.FC = () => {
 
   const logoutHandler = async () => {
     try {
-      await logoutApiCall("").unwrap();
+      await logoutApiCall('').unwrap();
       dispatch(logout());
       dispatch(resetCart());
-      navigate("/login");
+      navigate('/login');
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
         {/* Container: the inner eleemts of the nav don't strectall the way to the edges of the window */}
 
         <Container>
-          <LinkContainer to={"/"}>
+          <LinkContainer to={'/'}>
             <Navbar.Brand>
               <Image src="images/logo.png" />
             </Navbar.Brand>
@@ -48,12 +48,12 @@ const Header: React.FC = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <SearchBox />
             <Nav className="ms-auto">
-              <LinkContainer to={"/cart"}>
+              <LinkContainer to={'/cart'}>
                 <Nav.Link>
                   <FaShoppingCart />
                   Cart
                   {cartItems.length > 0 && (
-                    <Badge pill bg={"success"} style={{ marginLeft: "5px" }}>
+                    <Badge pill bg={'success'} style={{ marginLeft: '5px' }}>
                       {cartItems.reduce((a, c) => {
                         return a + (c.qty !== undefined ? c.qty : 0);
                       }, 0)}
@@ -71,7 +71,7 @@ const Header: React.FC = () => {
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to={"/login"}>
+                <LinkContainer to={'/login'}>
                   <Nav.Link>
                     <FaUser />
                     Sign In

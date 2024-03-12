@@ -1,62 +1,63 @@
-import { ORDERS_URL, PAYPAL_URL } from "../constants";
-import { apiSlice } from "./apiSlice";
+import { PayloadAction } from '@reduxjs/toolkit';
+import { ORDERS_URL, PAYPAL_URL } from '../constants';
+import { apiSlice } from './apiSlice';
 
 export const ordersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createOrder: builder.mutation({
       query: (order) => ({
         url: ORDERS_URL,
-        method: "POST",
+        method: 'POST',
         body: { ...order },
-        credentials: "include",
-      }),
+        credentials: 'include'
+      })
     }),
     getOrderDetails: builder.query({
       query: (orderId) => ({
         url: `${ORDERS_URL}/${orderId}`,
-        method: "GET",
-        credentials: "include",
+        method: 'GET',
+        credentials: 'include'
       }),
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 5
     }),
     payOrder: builder.mutation({
       query: ({ orderId, details }) => ({
         url: `${ORDERS_URL}/${orderId}/pay`,
-        method: "PUT",
+        method: 'PUT',
         body: { ...details },
-        credentials: "include",
-      }),
+        credentials: 'include'
+      })
     }),
     getPayPalClientId: builder.query({
-      query: () => ({
-        url: PAYPAL_URL,
-        credentials: "include",
+      query: ( ) => ({
+        url: `${PAYPAL_URL}/`,
+        credentials: 'include'
       }),
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 5
     }),
     getMyOrders: builder.query({
       query: () => ({
         url: `${ORDERS_URL}/mine`,
-        credentials: "include",
+        credentials: 'include'
       }),
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 5
     }),
     getOrders: builder.query({
       query: () => ({
         url: ORDERS_URL,
-        method: "GET",
-        credentials: "include",
+        method: 'GET',
+        credentials: 'include'
       }),
-      keepUnusedDataFor: 5,
+      keepUnusedDataFor: 5
     }),
     deliverOrder: builder.mutation({
       query: (orderId) => ({
         url: `${ORDERS_URL}/${orderId}/deliver`,
-        method: "PUT",
-        credentials: "include",
-      }),
-    }),
-  }),
+        method: 'PUT',
+        credentials: 'include'
+      })
+    })
+  })
 });
 
 export const {
@@ -66,5 +67,5 @@ export const {
   usePayOrderMutation,
   useGetMyOrdersQuery,
   useGetOrdersQuery,
-  useDeliverOrderMutation,
+  useDeliverOrderMutation
 } = ordersApiSlice;
